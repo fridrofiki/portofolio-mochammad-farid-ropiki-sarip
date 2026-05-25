@@ -1,0 +1,466 @@
+/* --- RESET & BASE STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+}
+
+:root {
+    /* Gunakan warna dasar bertema Cyber Neon Violet / Sesuai pilihanmu */
+    --dark-bg: #09090b;       
+    --dark-er-bg: #141416;    
+    --accent: #a855f7;        /* Ungu Neon */
+    --accent-glow: rgba(168, 85, 247, 0.4);
+    --text: #fafafa;          
+    --text-muted: #a1a1aa;    
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(168, 85, 247, 0.2); /* Diubah agar border mengikuti warna aksen */
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- REUSABLE COMPONENTS --- */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.section-header .line {
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    margin: 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--accent-glow); /* Serasi dengan accent-glow */
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.2rem 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(9, 9, 11, 0.75); /* Mengikuti tone warna dark-bg */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text); /* Mengikuti warna teks utama root */
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8%;
+    /* Efek pancaran di background diubah agar mengikuti warna accent secara dinamis */
+    background: radial-gradient(circle at 80% 40%, var(--accent-glow) 0%, transparent 50%);
+}
+
+.hero-content {
+    flex: 1.2;
+    padding-right: 3rem;
+}
+
+.greeting {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.hero h1 {
+    font-size: 3.8rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 40%, var(--accent) 100%); /* Diserasikan */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bio {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    max-width: 550px;
+}
+
+.highlight-tag {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: var(--accent-glow); /* Menggunakan warna glow transparan dari root */
+    border: 1px solid var(--accent);
+    color: var(--text); /* Menggunakan teks putih terang agar lebih terbaca */
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 2.5rem;
+}
+
+/* --- CTA BUTTON WITH ORIGINAL COLORS + BORDER GLOW WAVE --- */
+.cta-button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px var(--accent-glow); /* Diubah ke accent-glow */
+}
+
+/* Memastikan teks tombol berada di atas lapisan animasi */
+.cta-button span {
+    color: var(--dark-bg); /* Menyesuaikan otomatis dengan warna background gelap pilihanmu */
+    font-weight: 600;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cta-button span i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+/* Sinar lampu neon berkelip yang berputar di latar belakang bingkai */
+.cta-button::before {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: conic-gradient(transparent, transparent, transparent, var(--text), var(--accent)); /* Diserasikan ke root */
+    animation: rotateBtnGlow 3.5s linear infinite;
+    z-index: 2;
+}
+
+/* Lapisan warna menutup bagian tengah lingkaran */
+.cta-button::after {
+    content: '';
+    position: absolute;
+    inset: 2px; 
+    background: linear-gradient(135deg, var(--accent), var(--text-muted)); /* Diserasikan agar tidak menabrak warna lama */
+    border-radius: 6px;
+    z-index: 2;
+}
+
+@keyframes rotateBtnGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Efek Hover Interaktif */
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px var(--accent); /* Efek binar penuh saat di-hover */
+}
+
+.cta-button:hover span i {
+    transform: translateX(5px);
+}
+
+/* HERO IMAGE BLOCK */
+.hero-image {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%; 
+    max-width: 400px; 
+    margin: 0 auto; 
+}
+
+.profile-img {
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    border-radius: 50%;
+    object-fit: cover; 
+    object-position: center 25%; 
+    border: 4px solid var(--text); /* Mengikuti warna text putih di root */
+    box-shadow: 0 0 40px var(--accent-glow); /* Mengikuti warna glow di root */
+    z-index: 2;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* --- SKILLS SECTION --- */
+.skills {
+    padding: 7rem 8%;
+    background: var(--darker-bg);   
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+}
+
+.skill-card {
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--card-border);
+    transition: background 0.3s;
+}
+
+.skill-card i {
+    font-size: 1.8rem;
+    color: var(--accent);
+}
+
+.skill-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.skill-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent); /* Menggunakan warna aksen root */
+    background: rgba(255, 255, 255, 0.01);
+    box-shadow: 0 15px 30px var(--accent-glow); /* Menggunakan glow root */
+}
+
+.skill-card:hover .icon-box {
+    background: var(--accent);
+}
+
+.skill-card:hover .icon-box i {
+    color: var(--dark-bg); /* Berubah menjadi warna gelap latar belakang saat di-hover */
+}
+
+/* --- HOBBIES SECTION --- */
+.hobbies {
+    padding: 7rem 8%;
+    background: var(--dark-bg);
+}
+
+.hobbies-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.hobbies-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 2.5rem 2rem;
+    width: 280px;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.hobbies-card i {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+}
+
+.hobbies-card h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.25rem;
+}
+
+.hobbies-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.hobbies-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent); /* Serasi mengikuti root */
+    box-shadow: 0 10px 25px var(--accent-glow); /* Serasi mengikuti root */
+}
+
+/* --- CONTACT SECTION --- */
+.contact {
+    padding: 7rem 8%;
+    background-color: var(--darker-bg);
+}
+
+.contact-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    max-width: 1100px;
+    margin: 3rem auto 0 auto;
+}
+
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+}
+
+.info-item i {
+    font-size: 1.8rem;
+    color: var(--accent);
+}
+
+.info-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.info-item p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.contact-action {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 16px;
+    border: 2px dashed var(--card-border);
+    text-align: center;
+}   
+
+.contact-action p {
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Sengaja dibiarkan hijau asli agar ciri khas tombol aplikasi WhatsApp tetap dikenali */
+.whatsapp-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: #25D366;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+/* --- FOOTER --- */
+footer {
+    background: var(--darker-bg);
+    padding: 3rem 8%;
+    text-align: center;
+    border-top: 1px solid var(--card-border);
+}
+
+footer p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.social-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-links
